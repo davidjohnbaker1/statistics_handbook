@@ -1,0 +1,119 @@
+Psych To R Ideas 
+Use booklet for 5 day intensive on transitioning department to R
+
+Goal: Use R for basic statistics and data cleaning
+
+I. Introduction
+	0. Mantras
+		i. It's OK to break R
+		ii. google is your best friend
+		iii. Need to think linearly and literally
+	A. Installing
+	B. RStudio
+	C. Familiarizing
+	D. Consoles, Scripts, Markdowns
+	E. Thinking Like A Computer
+		i. Rubberducking
+		ii. Computers like a tree
+		iii. Different types of containers
+			a. Vectors
+			b. Matricies 
+		iv. Different things in those containers 
+			a. Numeric
+			b. Character
+			c. Factor, releveling
+	F. Libraries
+		i. install.packages()
+		ii. library()
+		iii. RIO
+		iv.  psych
+	G. Writing your first script
+		i. Title it, the comment #
+		ii. set wd
+		iii. look at files in wd
+		iv. the arrow operator
+		v. where that object lives
+		vi. how to look at it
+			I. str()
+		vii. resetting things
+		viii. exporting out of R
+II. Exploring and Subsetting  Data
+	A. Looking at Data
+		i. View() # For sadists
+		ii. str() 
+		iii. summary()
+		iv. the dollar operator
+		v. basic math functions
+			I. mean()
+			II. median()
+			III. the ?? function
+	B. Graphing the data
+		i. Know what type of data you have!
+		ii. base packages vs ggplot2()
+		iii. Univariate graphs
+			I. hist()
+			II. plot()
+		iv. Multivariate
+			I. boxplot()
+			II. scatter()
+		v. Putting Labels on Graphs
+			I. arguments 
+			II. xlab, ylab, title
+			III. bins
+	C. Advanced Plotting
+		i. psych pair.plots()
+			I. various arguments
+		ii. ggplot2()
+			I. Layers
+			II. Facet wrapping (will be covered more last day)
+	D. Cleaing data
+		i. NAs
+			I. na.omit()
+			II. na.remove
+III. Univariate Tests 
+	A. T-Tests
+		i. Assigning model to an object
+		ii. Arguments of the t-test
+		iii. Finding the important values
+	B. Correlations
+		i. cor()
+		ii. cor.test()
+	C. Regression
+		i. the ~ operator
+		ii. not being so literal, grouping
+		iii. summary()
+	D. ANOVA
+		i. Double checking for factors
+		ii. Running the omnibus
+		iii. Post-Hocs
+	E. ANCOVA
+		i. Adding in the cov
+		ii. output
+	D. Chi-Square	
+		i. setting data
+		ii. getting output
+	F. Power 
+		i. pwr package
+		ii. Writing your own command 
+IV. Functions and Self Practice
+	A. Don't want to have to reinvent the wheel
+	B. Write your own t.test and ANOVA!
+	C. Write a checker with adv concepts
+		i. Data checker
+		ii. Print texts
+		iii. paste() 
+V. Intermediate Concepts
+	A. Diving into ggplot2()
+		i. layers
+		ii. facet wrapping
+	B. Markdown and reproducability
+	C. dplyr 
+		i. melt 
+		ii. aggregate
+		iii. colSums()
+		iv. rowSums()
+	D. datasets in R 
+	E. Continuing your training
+		i. swirl()
+		ii. Andy Field Statistics for R
+		iii. git and sharing 

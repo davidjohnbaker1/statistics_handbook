@@ -1,0 +1,262 @@
+---
+title: "Statistics Handbook"
+author: "David John Baker"
+date: "December 2, 2016"
+output: html_document
+---
+## Introdution
+
+### Rationale
+
+This handbook began as an attempt to review for the first statistics course that I took at Louisiana State University with Dr. Jason Hicks. 
+Prior to coming to LSU, my statistics knowledge was cursory at best. 
+After taking Dr. Hick's class, I realize that that the only thing I probably had going for me in terms of statistical knowledge was my background being able to manipulate data in R to a certain extent. 
+This book is meant to serve as a link, a possible draft for any individual without a background in either programming or statistics to be able to understand the fundamental aspects of null hypothesis significance testing and programming in R at the same time. 
+I am a firm beliver (of course now) that in order to really understand what is happening when you conduct a null hypothesis test, that you should really have a good idea of what his happening under the hood. 
+
+In order to accomplish that, this book provides all of the basics that one would need to learn R as well as the math behind most of the basic techniques used in statistics. 
+This is accomplished by first providing theoretical information and rationale about each technique, then by writing out a function within R that accomplishes that math (largely inspired by the "Teach Yourself R" sessions that Dr. Daniel M??llensiefen ran out of his own time during my time as a student on the Music, Mind and Brain programme in London). 
+That said, the formulas written in this book will not be as accurate as the prepackaged formulas in R! 
+The tasks are meant to get the reader to engage both with R as well as the statistical methods simultaneously. 
+
+### Why Write Another Statistics Book?
+
+Why not? 
+No, just kidding. 
+The reason I am writing this isn't for you, the reader, but for me! There's a lot of great statistics books out there, but I felt that I needed to go through the process of writing this on my own so I had a better grasp of both R and Statistics. 
+It also would serve as a draft for something that I can put on my CV, a text I could use in a course that I would want to teach, and eventually I want to swap out all the examples so that they all have to do with music. 
+The idea here would be so when and where I teach this 'Statistics for Musicians' course, I have something to work with and it helps me gather my thoughts on it. 
+
+### Format of Each Chapter
+
+Each chapter is laid out in a way that mirrors the Cohen and Field book used in Dr. Hick's "Intermediate Statistics" book.
+The chapter begins with some sort of musican problem to solve, which then conviently becomes the vehicle to attack understanding the statistical method at hand. 
+After some theoretical introductions, small R tasks are introduced to help solidify the reader's understanding of the topics. 
+
+### Thank You
+
+As I start writing, I would be remiss not to thank Dr. Jason Hicks for the course that he taught and inspired me to collect all of his notes into a book, Dr. Daniel M??llensiefen for kindly teaching my MMB cohort R, and Dr. Daniel Shanahan for being a wonderful mentor during my time as a PhD student at LSU. 
+
+## Descriptive Statistics 
+## Sampling Distributions
+## Transformations
+## One Sample Null Hypothesis Test
+## Two Sampel Null Hypothesis Test
+## Confidence Intervals
+## Power
+## Correlation
+## Linear Regression
+## One Way ANOVA
+
+## Dependant Samples T-Test
+## Multiple Comparisions
+## Factorial ANOVA
+## Factorial ANOVA II 
+## Repeated Measures ANOVA
+
+Let's write a repeated measures ANOVA fucntion!
+
+```{r}
+my_rmanova <- function(x){
+  #Calculate df total
+  df.total <- (ncol(x)*nrow(x)) - 1
+  #Calculate df RM
+  df.rep.measure <- (ncol(x)-1)
+  #caclulate df subject
+  df.subject <- (nrow(x)-1)
+  #calcualte df interaction
+  df.interaction <- df.rep.measure * df.subject
+  #Calculate Participant Averages
+  part.averages <- rowMeans(x)
+  #Calculate Column Averages
+  condition.averages <- colMeans(x)
+  #Calculate Grand Mean
+  grand.mean <- mean(part.averages)
+  #Calcualte Sum of Squares Total
+  sst <- sum((x - grand.mean)^2)
+  #Calculate Sum of Squares Subject
+  ss.sub <- ncol(x)*sum((part.averages - grand.mean)^2)
+  print(ss.sub)
+  #Calculate Sum of Squares Repeated Measures
+  ss.rm <- nrow(x)*sum((condition.averages - grand.mean)^2)
+  print(ss.rm)
+  #Calculate Sum of Squares Interaction
+  ss.int <- sst - ss.rm - ss.sub
+  print(ss.int)
+  #Calculate Means Squares Interaction
+  ms.error <- ss.int/df.interaction
+  print(ms.error)
+  #Calculate Mean Squre Repeated Measures
+  ms.rm <- ss.rm / df.rep.measure
+  print(ms.rm)
+  #Calculate Mean Square Subject
+  ms.sub <- ms.rm / ms.error
+  print(ms.sub)
+  #Calculate F Ratio
+  f.statistic <- ms.rm/ms.error
+  print(f.statistic)
+}
+```
+
+## Repeated Measures Factorials
+## Multiple Regression I
+
+## Multiple Regression II
+## Chi Square
+####Theory
+
+The Chi Square distribution and test were develeloped by Karl Pearson. 
+Often called a "goodness of of fit test", it is used to measure degrees of independence or association.
+It relies on use of contingency tables.
+Like other test, it has assumptions that have to be met, even thought it deals with categorical, as opposed to continuous data.
+
+The distribution for the chi-square test varies as a function of the degrees of freedom.
+With each number of categories about to be tested, the distributions change as can be seen in Figure X.
+The distribution has a largely positive skew, except for very large degrees of freedom.
+
+The chi-square distribution is an approximatino to the multinomaila distribution, meaning that there are more than 2 variables being considered.
+The chi-square test was developed to ascertain the discrepancy between observed frequencies of multinomial categores and teh expected frequency of those categories.
+
+Like other statstical tests, there is some sort of null hypothesis that is expected, which you are comparing your test statistic to.
+With one factor and many categories in that factor, the test is often called a "goodness of fit" test.
+In other words, we are checking to see if the observed frequencies "fit" what we think we are supposed to get. 
+
+### One Way Chi Squared
+
+The formula is listed below 
+
+$\chi^2$=$$\sum\frac{(f_o - f_e)^2}{f_e}$$ $$\sum\frac{(O-E)^2}{E}$$
+$$df = k - 1$$
+
+How one determines what is 'expected' depends on the scenario, but often this is determiened by some expectation of a random observation. 
+
+#### Practice
+
+Here is the example from Dr. Hicks' class:
+Tolman, Ritchie, and Kalish (1946) performed one of the most famous experiments in
+animal learning. Rats were first taught how to run down a particular alley to reach a
+goal box (rewarded by food). After training, the original alley was blocked halfway
+down and other alleys were provided as choices. The data below are a simplification of
+the full set of choices (see figure below for full set). There were 32 rats used, and each
+was tested in the new maze after learning the original route. If rats were choosing alleys
+at random, then an equal number would choose each of the 4 (8 rats each).
+
+The data generated from this experiment is shown in the table.
+
+DATA HERE
+
+Our question here is to see if thse values differ significantly from random chance, given that data, the computation would look like this.
+
+
+$$\chi^2=\sum\frac{(O-E)^2}{E}=\frac{(4-8)^2}{8}+\frac{(5-8)^2}{8}+\frac{(8-8)^2}{8}+\frac{(15-8)^2}{8}=9.25$$
+
+With three degrees of freedom (since they had four options, aka k - 1), we look up the chi-squared value in Table A.14 with an $$\alpha$$=.05.
+This critical value is 7.81.
+Since this exceedes our critical value, we can then conclue that the rats are choosing alleys nonrandomly.
+
+Note that this is an omnibus test like the ANOVA; it only detecs a discrepancy.
+You could perform similar chi-squared tests on smaller portions of the categories or perform a binomal test for a single category.
+For example is 15 out of 32 different from what would be expected by chance, just 25%.
+
+### Two Way Chi Square
+
+The two way chi-square is a test of indepedence or associateion.
+With two variables, one sets up a contingency table to see fi the frequencies of one factor depend on the other.
+
+Here is the scenario from Dr. Hicks' class: 
+
+Scenario: Another famous experiment by Darley and Latan?? (1968). Subjects participate in a discussion over intercom with an experimenter. Subjects thought that either 0, 1, or 4 others were also in the conversation. Partway through, the experimenter feigned illness and asked for help. The table shows how many subjects in each group sought out the experimenter.
+
+With the data from that experiment listed here
+
+DATA
+
+For this to work, we need to first calculate the what is kind of like a marginal mean, but really its a marginal summation.
+You can see from the table below that if you add up the rows and columns, you get the value in the totals margin.
+When you add them all up you get the total number of data points in your experiment.
+With these numbers you then use the formula for calculating each cell's expected value $$E_{i,j}=\frac{R_i C_j}{N}$$ to find the proportion that you would expect in each cell given your data and the percents.
+You find the degrees of freedom that you will use with the formula $$df=(R-1)(C-1)$$ where $$R$$ is the number of rows and $$C$$ is the number of columns. 
+
+The calculations for each cell are shown below. 
+$$E_11=\frac{13*3}{52}=7.75$$ 
+
+Now once we know all of these expected values, we can use the difference from what we observed subtracted from what we expected, divided by what we would expect to find the amount that each of these cells differs from expected.
+Those calculations are shown below along with each formula needed to perform the calcultion.
+These calculations then result in a statistic that needs to be compared against a critical value.
+Here is a sentence on how that works.
+
+#### Measures of Assocaition
+
+Cramer's phi is a measure for two way tables other than a 2x2.
+It indicates the level of association (think of it like a percent out of 100), that that shows how much two people agree.
+$$\phi_c=sqrt(\frac{\chi^2}{N(L-1)})$$
+Where N is the total count from the experiment and L is the smaller count of rows and columns from your design.
+For example if you had a 3x2 matrix, then you would pick 2.
+If you run this same thing for a 2x2 table, it just fixes it self so I really don't know why there has to be some sort of exception rule here.
+
+#### Darkland of SPSS Interpreation
+
+After using the crosstabs option in the program who should not be named, you get the table, the symmetric measure, as well as the chi-squared test.
+Chramer's phi (V in SPSS) is a measure of associat, akin o any other correlation.
+Suare it is analogous ot the omega-squared and r-squared.
+Phi ($$\phi$$) is a measure useful for 2 x 2 contingency tables and has the same interpreation.
+
+For the "four", bystandard group the proportion that helped (31%) is lower than for the "none" group, but not lower for the "one" group.
+For the "none" bystandard group, the proportion that helped (84%) is greater than the four group, but not the "one" group.
+The proportion that helped in the "one" bystandard group (62%) is not different from any others.
+We figure this otu with a z test ot compare proportions across columns.
+We interpret this SPSS ouput by knowing two are significantly different if the numbers do not share a letter.
+If they DO in fact share a letter, then they are not differnt than the ones in other groups.
+(Rewrite this shit)
+
+#### Kappa
+
+Another thing that you can do with chi-square is calculate a contingency table analysis that measurse agreement.
+In the example here, we have two judges making three ratings on 30 participants.
+Just looking at the table we can see that...
+We follow the same process as above here where we first calcuate teh marginal sums.
+Then we add up all the times the judges agree (the diagonal).
+Then we figured out the cell's expected value with the $$\E_{i,j}=\frac{R_i * C_j}{N}$$ formula, and then add up all those values.
+That gives us our expected value (12.94 in this case).
+And then we use a modified formual to find out expected from observed listed below
+$$\kappa=\frac{\sum f_o - \sum f_e}{N - \sum f_e}=\frac{21-12.94}{30-12.94}=\frac{9.806}{17.06}=.47$$
+
+#### Assumptions of Chi Square
+
+Like other statistical tests, the assumptions of chi-square need to be considered.
+The categories hve to be mutually exclusive and exhaustive.
+No observaton can bein more than one category.
+Every possible category must be measured.
+Somtimes reseracher fail to consider "nonoccurances" or "no" responses in a separate category.
+The observations must be independant, only one response per subject!
+Normality- small expected frequencies ( < 5 ) often create a problem for normality.
+
+### Chi Squared
+
+In R, write two funcitons.
+One will run a one way chi square, the other will run a two way chi square.
+When you are done wiht that, write one for phi and another for kappa.
+
+My attempt and walk through is found in the supplemental code chapter. 
+
+```{r}
+my_one_way_chi <- function(x){
+  total.trials <- sum(x)
+  indiv.expect <- total.trials/length(x)
+  chi.num <- (x - indiv.expect)^2
+  chi.calc <- sum(chi.num/indiv.expect)
+  print(chi.calc)
+}
+```
+
+
+
+#### Work Log in Pomodori 
+
+$$\begin{array}
+{rrrr}
+Task & Pomodori & Total & Date\\
+Write\ Intro & 1 & 1 & Morning\ of\ Dec\ 3\ 2016 \\
+Chi\ Square & p\ p\ p\  & 3  & Morning\ of\ Dec\ 3\ 2016 \\
+\end{array}
+$$
