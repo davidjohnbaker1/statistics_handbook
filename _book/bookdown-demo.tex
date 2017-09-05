@@ -124,7 +124,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2017-08-30}
+  \date{2017-09-05}
 
 \usepackage{booktabs}
 
@@ -202,7 +202,7 @@ is defined by the first-level heading \texttt{\#}.
 
 To compile this example to PDF, you need to install XeLaTeX.
 
-\chapter{Introduction}\label{intro}
+\chapter{Sampling Distributions and T-Tests}\label{intro}
 
 You can label chapter and section titles using \texttt{\{\#label\}}
 after them, e.g., we can reference Chapter \ref{intro}. If you do not
@@ -281,9 +281,139 @@ You can write citations, too. For example, we are using the
 \textbf{bookdown} package \citep{R-bookdown} in this sample book, which
 was built on top of R Markdown and \textbf{knitr} \citep{xie2015}.
 
-\chapter{Literature}\label{literature}
+\chapter{Confidence Intervals and
+Power}\label{confidence-intervals-and-power}
 
-Here is a review of existing methods.
+Class notes from September 5th, 2017
+
+\section{Confidence Interval
+Estimation}\label{confidence-interval-estimation}
+
+Confidence intervals are a way to get at a range of likely values for an
+estimate. It's an inferrential way of thinking about values from your
+sample. It differs from things like the mean, median, and mode in that
+those are point esitmates and a CI is a range.
+
+We know that over repeated sampling, the CI represents the percentage of
+sugt intervals that contain the population mean. Just like a p value,
+you can set the CI to any percentage you want. So just like you can
+think of a distribution of sample means as a way of describing your
+parameters, you can also do this with CIs.
+
+A CI gives you an educated guess of identifying the population mean than
+just knowing one number, which would be the mean itself. Keep in mind
+for all of this we are operating on the sampling distribution
+informaiton. Just like the set of t distributions are a set of sampling
+distributions, CIs are computed from the sampling distributions.
+
+There is a relationship between CIs and p values because at their core
+is the sampling distribution. They are not the same thing, but they
+represent information coming from the sampling distribution.
+
+Take a look at the image below. We see here in an image taken from THIS
+that we can see what a confidence interval is. Image you take a sample
+from known populaiton paramters. We tell it we want a certain N, mu, and
+standard deviation. What it then does is construct a CI around that
+mean. We have a certain amount of information that comes from our
+sample. Our CI is a symmetrical range that gives you a sense of the
+possibilites of where the populatin mean might be.
+
+IMAGE WITH ONE
+
+It's not a probability of the mean being in that CI! A CI represents the
+percentage of intervals that capture the population mean. This only
+makes sense if you think about repeated sampling over many experiments.
+You then calculate the number of intervals that contain the actual
+population mean.
+
+IMAGE BLACK RED
+
+IMAGE WITH ALL OF THEM.
+
+So now below you can see 25 samples. You can start to see teh sampling
+distribution get created at the bottom They start to form a normal
+curve. Notice that every sample mean has a symmetrical intervals. Note
+that there are 2 sample means and their CI, the entire interval does not
+have the population mean. But for all of the other ones, they do have
+the population mean. So 23/25 is 92\%, but as we add more in we would
+eventually add more and approach 95\%. Any one of these intervals gives
+you an estimate of the populatino mean. That does not mean its 95\%
+likely to be right. It's that in repeated samples 95\% of the samples
+will fall in that range. What we have now is a range of values that
+might hold the mean. 95\% of these will have mean in the long run.
+
+Note that with the sampling distribution at the bottom, we are still
+using information. We still use mean, the standard error. We still know
+the degrees of freedom.
+
+Note that this is just a visualzation. Note some of the intervals are
+wider, some are shoter. This is because your samples SD is goign to hop
+around. The sample's CI takes into account the standard error.
+
+We can see now see the difference in means between two sample means. We
+now plot the difference from TTESTFROM EARLIER. We subtract the two
+means and can see in the long run, we had a population mean of 10. But
+if you look at it, note that the populations hop around. Not only that,
+but they all have CIs.
+
+With this image, if the Null was true, we would get means around 0. Note
+that a lot of these random samples from a known population that is not
+the null, over HALF of them make it look like the null could be a
+reasonable guess. Just like a NHT, sometimes you are going to get a high
+P value even though we know the Null is false. Why might this happen?
+Well it might just be that we need to figure out how to set up.
+
+\section{Example}\label{example}
+
+Let's return to the example that we are looking at SAT scores with a
+population mean of 455. We then calculate the 95\% confidence interval.
+What it's trying to do is capture the inside part. Note your CI is not
+exactly the mean and the cut off boundary, your mean changes. This is
+just a reminder we use the sampling distribution interval.
+
+SAMPLING DISTRIBUTION SAT IMAGE
+
+\section{Computation of Confidece
+Interval}\label{computation-of-confidece-interval}
+
+Confidence interval for a single sample mean.
+
+\[\bar{X} ± (t_{cv}s_{\bar{X}})\]
+
+Note all we are doing is rearranging the t formulat. We multiply both
+times by the standard error. It's not your actual t value, it's the
+critical value of t. When you have two samples, you just rearrange the
+values.
+
+\[(\bar{X_{1}}-\bar{X_{1}}) ± (t_{cv})(s_{\bar{X_{1}}-\bar{X_{1}}})\]
+
+Remember we are assuming we are constructing this from the sample means.
+Let's return to our example from last chapter. We know the specific
+numbers from each of our sample means.
+
+PUT IN NUMBERS HERE IN TABLE.
+
+Let's find out what happens when we look at each on interms of its own
+mean and a difference. We don't know the population mean, so we go with
+the sample mean.
+
+\(t_{cv,df = 149,\alpha=.05,two tailed}= ± 1.97\)
+
+CALCULATION HERE FOR SPRING AND FALL CLASS! \emph{NOte they are almost
+identical}
+
+SEE IF YOU CAN COLOR CODE THIS!!!
+
+Note that at this point we are not comparing them against each other.
+This says beyond just knowing the mean, says interval. This does not
+mean the population mean is 95\% likely to be in that interval. It is if
+I did this over and over, that 95\% of those intervals will hold the
+sample mean.
+
+The reasons we know this is because it's better than using the mean
+alone. Report the CI like it is a descritive statistc. Though note that
+this comes from the sampling distribution, which comes from an
+infferential.
 
 \chapter{Methods}\label{methods}
 
