@@ -1,3 +1,100 @@
-# Methods
+# Measuring and Cntrolling the Power of a Hypothesis Test
 
-We describe our methods in this chapter.
+INSERT SUMMARY POINTS HERE
+
+* What statistical factors hould be considered
+* 
+
+Review of the probabilites of when the Null is False.
+
+If you really plan your research carefully you want a reasonably low alpha.
+We don't always think about beta as often.
+Some people think that we should minimize beta.
+We don't want beta should be big.
+
+Cohn made a case that in clinical papers there was terrible power.
+You want power to work in you favor, not working against you.
+
+We have a new distribution.
+The non-central t distribution represnts teh alternative hypothesis, centered on SD.
+This represents the average t vlaue on would expect for a given effect size and sample size.
+
+PUT REPRESENAATION OF NONCENTRAL T DISTRIBUTION HERE
+
+We need to think about what makes the AHD distribution shift over.
+
+For a one sample t test, how far it's shifted over is a function of *Cohen's D* and the *sample size* that delta is basically a t.
+Remember, what is in the effect size? Mmean divided by standard deviation.
+Delta is just a rearragment of t.
+This tells me if I have an expected effect size, I can compute my t value under that assumption.
+You can also compute this after the fact.
+This is best done as a *prospective* practice.
+We need the the effect size and the n.
+Note that the *d* has two things in it.
+g is calculation of sample size effect size calculaiton.
+
+For a two sample test, you need to account for the fact that you need to increase the sampling varience.
+YOu need a bit more to get that power in a two group case.
+
+If you have wildly different sample sizes, you need to compute the harmonic mean.
+It's the weighted average $n_k$.
+
+TOPBOTTOM ALPHA
+
+The nice thing of this graph is that alpha exist on the null.
+On the alterative, you only get the beta.
+Representing them on top of each other makes it explicit that these values exist on differnt distributions.
+If you take off the alpha and run it down to the AHD, take the T value location, it will extend down over the AHD.
+That's how we figure out how much is on the left side of AHD (Beta), or on right side (Power!).
+The way that it's drawn now, it's in favor of beta.
+Only the distribution can move.
+You can move it by changin the effect size, OR you can make them more Narrow (increase SE).
+Alpha tracks with the NHD, it will MOVE the location of the alpha cut off.
+It doesn't change alpha, but it does change the t cut off.
+Your AHD mean will not change.
+
+## Factors that determine power of Study
+
+* Effect size (separate means OR population standard deviations)
+* Sample Size
+* Significance Level
+* Directionality (one vs two tailed)
+
+SHOW EXAMPLES OF HOW YOU CAN CHANGE DISTRIBUTIONS BY CHANGING THE MEANS.
+
+SHOW EXAMPLES OF HOW YOU CAN CHANGE DISTRIBUTIONS BY CHANGING THE MEANS.
+Can have more conservative alpha for well known phenomeon.
+You can make it lower if it's exploratory.
+
+Notice that as line shrinks, you need to move alpha with it when you change the SD.
+
+Note two tailed tests are less powerful than one; all other things being equal.
+The only justification for having something 1 tailed is if you have a theoretical reason to do so.
+
+## Computational Example
+
+Let's thnink about what happens what happens when we want to change delta and plan for how many subjects we want.
+We can say that $$n = ( \frac{\delta}{d})^2$$
+Once we find our numbers, we can find an estimated sample size to get that level of power.
+
+In a two group case, note that that is the per group estimate. 
+Need to multiply that by 2 in order to get big total.
+
+Remind ourself of power: the pobability of finding something that there is actually an effect.
+
+.38 example
+
+What if we change something else?
+Could go one tailed.
+That's about it.
+
+You could do the other way aorund, go to table, get t value you need for that level of power.
+
+
+Attributes that Belong to Null
+
+Attributes that belong to the Alt
+
+## 
+
+
